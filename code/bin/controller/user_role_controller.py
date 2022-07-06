@@ -15,10 +15,7 @@ sys.path.append(os.path.join(code_dir, 'bin/entity'))
 sys.path.append(os.path.join(code_dir, 'bin/dao'))
 
 from user import User
-from user_dao import UserDao
-from role_dao import RoleDao
 from user_role_dao import UserRoleDao
-from token_controller import TokenController
 
 
 class UserRoleController:

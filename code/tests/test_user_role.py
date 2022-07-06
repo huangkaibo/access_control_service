@@ -6,7 +6,6 @@ from __future__ import annotations
 import os
 import sys
 import unittest
-from time import sleep
 
 current_dir = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 code_dir = os.path.join(current_dir, '..')
@@ -17,9 +16,6 @@ sys.path.append(os.path.join(code_dir, 'bin/entity'))
 sys.path.append(os.path.join(code_dir, 'bin/controller'))
 
 from db import db
-from utils import Utils
-from user import User
-from role import Role
 from user_role import UserRole
 from user_dao import UserDao
 from role_dao import RoleDao
@@ -27,9 +23,6 @@ from user_role_dao import UserRoleDao
 from user_controller import UserController
 from role_controller import RoleController
 from user_role_controller import UserRoleController
-from token_controller import TokenController
-from access_control_controller import AccessControlController
-from exception import InvalidToken, UserNotExist, AuthFailed, UserExist, RoleExist, RoleNotExist
 
 
 class TestUserRole(unittest.TestCase):

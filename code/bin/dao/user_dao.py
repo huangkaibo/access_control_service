@@ -15,8 +15,6 @@ sys.path.append(os.path.join(code_dir, 'bin/entity'))
 
 from db import db
 from user import User
-from utils import Utils
-from exception import UserExist, UserNotExist
 
 
 class UserDao:

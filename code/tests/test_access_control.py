@@ -17,10 +17,6 @@ sys.path.append(os.path.join(code_dir, 'bin/entity'))
 sys.path.append(os.path.join(code_dir, 'bin/controller'))
 
 from db import db
-from utils import Utils
-from user import User
-from role import Role
-from user_role import UserRole
 from user_dao import UserDao
 from role_dao import RoleDao
 from user_role_dao import UserRoleDao
