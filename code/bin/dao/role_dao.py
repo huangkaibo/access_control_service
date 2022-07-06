@@ -15,7 +15,6 @@ sys.path.append(os.path.join(code_dir, 'entity'))
 
 from db import db
 from role import Role
-from exception import RoleExist, RoleNotExist
 
 
 class RoleDao:
@@ -30,8 +29,6 @@ class RoleDao:
             None
         """
         role.id = str(len(db.role_table))
-        if self.get_role(role_name=role.name):
-            raise RoleExist(role.name)
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         db.role_table.append({
             'id': role.id,
@@ -56,7 +53,6 @@ class RoleDao:
                 role['enabled'] = False
                 role['modify_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 return
-        raise RoleNotExist(role_id)
 
     def get_role(self, role_id: str = None, role_name: str = None) -> 'Role':
         """
