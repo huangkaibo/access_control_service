@@ -10,10 +10,11 @@ import datetime
 
 current_dir = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 code_dir = os.path.join(current_dir, '../..')
-sys.path.append(os.path.join(code_dir, 'db'))
+sys.path.append(os.path.join(code_dir, 'bin/db'))
 sys.path.append(os.path.join(code_dir, 'lib'))
-sys.path.append(os.path.join(code_dir, 'entity'))
+sys.path.append(os.path.join(code_dir, 'bin/entity'))
 
+from db import db
 from utils import Utils
 from user_dao import UserDao
 from exception import InvalidToken, UserNotExist
@@ -22,9 +23,7 @@ from exception import InvalidToken, UserNotExist
 class TokenController:
     def __init__(self):
         # 过期时间, 单位秒
-        self.EXPIRE = 5
-        # 主动失活的名单
-        self.black_list = []
+        self.EXPIRE = 2
 
     def sign_token(self, user: 'User') -> str:
         """
@@ -37,7 +36,7 @@ class TokenController:
             token
         """
         expire_datetime = datetime.datetime.now() + datetime.timedelta(seconds=self.EXPIRE)
-        expire_datetime = expire_datetime.strptime(user['create_time'], '%Y-%m-%d %H:%M:%S')
+        expire_datetime = expire_datetime.strftime('%Y-%m-%d %H:%M:%S')
         token = {
             'user_id': user.id,
             'expire_datetime': expire_datetime
@@ -57,8 +56,8 @@ class TokenController:
             用户实体
         """
         # 已失活
-        if token in self.black_list:
-            raise InvalidToken()
+        if token in db.token_black_list:
+            raise InvalidToken(token)
 
         # 解析
         try:
@@ -70,8 +69,8 @@ class TokenController:
             raise InvalidToken()
 
         # 过期
-        if datetime.datetime.strptime(expire_datetime, '%Y-%m-%d %H:%M:%S') > datetime.datetime.now():
-            raise InvalidToken()
+        if datetime.datetime.strptime(expire_datetime, '%Y-%m-%d %H:%M:%S') < datetime.datetime.now():
+            raise InvalidToken(token)
 
         # 获取对应的用户
         user = UserDao().get_user(user_id)
@@ -91,7 +90,7 @@ class TokenController:
             None
         """
         # 本就无效
-        if not self.parse_token():
+        if not self.parse_token(token):
             return
 
-        self.black_list.append(token)
+        db.token_black_list.append(token)

@@ -8,9 +8,10 @@ import sys
 
 current_dir = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 code_dir = os.path.join(current_dir, '../..')
-sys.path.append(os.path.join(code_dir, 'db'))
+sys.path.append(os.path.join(code_dir, 'bin/db'))
 sys.path.append(os.path.join(code_dir, 'lib'))
-sys.path.append(os.path.join(code_dir, 'entity'))
+sys.path.append(os.path.join(code_dir, 'bin/entity'))
+sys.path.append(os.path.join(code_dir, 'bin/dao'))
 
 from utils import Utils
 from user_dao import UserDao
@@ -30,10 +31,10 @@ class AccessControlController:
         Returns:
             token
         """
-        user = UserDao.get_user(user_name=user_name)
+        user = UserDao().get_user(user_name=user_name)
         # 用户名不存在
         if not user:
-            raise UserNotExist()
+            raise UserNotExist(user_name)
         # 密码错误
         if Utils.calc_md5(password + user.salt) != user.password:
             raise AuthFailed()
@@ -51,4 +52,4 @@ class AccessControlController:
         Returns:
             None
         """
-        TokenController().sign_token(auth_token)
+        TokenController().invalid_token(auth_token)

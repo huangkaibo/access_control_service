@@ -9,9 +9,9 @@ import datetime
 
 current_dir = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 code_dir = os.path.join(current_dir, '../..')
-sys.path.append(os.path.join(code_dir, 'db'))
+sys.path.append(os.path.join(code_dir, 'bin/db'))
 sys.path.append(os.path.join(code_dir, 'lib'))
-sys.path.append(os.path.join(code_dir, 'entity'))
+sys.path.append(os.path.join(code_dir, 'bin/entity'))
 
 from db import db
 from user import User

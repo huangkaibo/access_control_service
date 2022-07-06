@@ -9,9 +9,9 @@ import datetime
 
 current_dir = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 code_dir = os.path.join(current_dir, '../..')
-sys.path.append(os.path.join(code_dir, 'db'))
+sys.path.append(os.path.join(code_dir, 'bin/db'))
 sys.path.append(os.path.join(code_dir, 'lib'))
-sys.path.append(os.path.join(code_dir, 'entity'))
+sys.path.append(os.path.join(code_dir, 'bin/entity'))
 
 from db import db
 from user import User
@@ -41,7 +41,7 @@ class UserRoleDao:
         if not RoleDao().get_role(role.id):
             raise RoleNotExist()
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        db.role_table.append({
+        db.user_role_table.append({
             'id': str(len(db.user_role_table)),
             'user_id': user.id,
             'role_id': role.id,
@@ -61,7 +61,7 @@ class UserRoleDao:
         Returns:
             用户-角色
         """
-        for user_role in db.role_table:
+        for user_role in db.user_role_table:
             if not user_role['enabled']:
                 continue
             if user_id and user_role['id'] != user_id:
@@ -88,10 +88,10 @@ class UserRoleDao:
             用户-角色
         """
         user_role_list = []
-        for user_role in db.role_table:
+        for user_role in db.user_role_table:
             if not user_role['enabled']:
                 continue
-            if user_id and user_role['id'] != user_id:
+            if user_id and user_role['user_id'] != user_id:
                 continue
             user_role_list.append(UserRole(
                 id=user_role['id'],

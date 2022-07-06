@@ -8,9 +8,10 @@ import sys
 
 current_dir = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 code_dir = os.path.join(current_dir, '../..')
-sys.path.append(os.path.join(code_dir, 'db'))
 sys.path.append(os.path.join(code_dir, 'lib'))
-sys.path.append(os.path.join(code_dir, 'entity'))
+sys.path.append(os.path.join(code_dir, 'bin/db'))
+sys.path.append(os.path.join(code_dir, 'bin/dao'))
+sys.path.append(os.path.join(code_dir, 'bin/entity'))
 
 from user import User
 from utils import Utils
@@ -63,4 +64,4 @@ class UserController:
         user_dao = UserDao()
         if not user_dao.get_user(user_id=user.id):
             raise UserNotExist(user.name)
-        user_dao.delete_user(user)
+        user_dao.delete_user(user.id)

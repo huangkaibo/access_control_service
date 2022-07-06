@@ -12,6 +12,7 @@ class DB:
         self.user_table = []
         self.role_table = []
         self.user_role_table = []
+        self.token_black_list = []
 
 
 db = DB()
