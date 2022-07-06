@@ -86,8 +86,7 @@ class RoleController:
 
     def all_roles(self, auth_token: str) -> List['Role']:
         """
-        1. 返回这个角色的所有role
-        2. 如果token无效, 返回error
+        返回这个token对应的用户关联的的所有role
 
         Args:
             auth_token: token
