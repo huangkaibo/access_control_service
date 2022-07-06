@@ -15,7 +15,10 @@ sys.path.append(os.path.join(code_dir, 'bin/entity'))
 sys.path.append(os.path.join(code_dir, 'bin/dao'))
 
 from user import User
+from user_dao import UserDao
+from role_dao import RoleDao
 from user_role_dao import UserRoleDao
+from exception import UserNotExist, RoleNotExist
 
 
 class UserRoleController:
@@ -30,4 +33,15 @@ class UserRoleController:
         Returns:
             None
         """
-        UserRoleDao().add_user_role(user, role)
+
+        user_role_dao = UserRoleDao()
+        # 已关联
+        if user_role_dao.get_user_role(user_id=user.id, role_id=role.id):
+            return
+        # 用户不存在
+        if not UserDao().get_user(user.id):
+            raise UserNotExist()
+        # 角色不存在
+        if not RoleDao().get_role(role.id):
+            raise RoleNotExist()
+        user_role_dao.add_user_role(user, role)

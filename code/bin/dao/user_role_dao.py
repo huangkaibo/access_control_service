@@ -17,9 +17,6 @@ from db import db
 from user import User
 from role import Role
 from user_role import UserRole
-from exception import UserNotExist, RoleNotExist
-from user_dao import UserDao
-from role_dao import RoleDao
 
 
 class UserRoleDao:
@@ -34,12 +31,6 @@ class UserRoleDao:
         Returns:
             None
         """
-        if self.get_user_role(user_id=user.id, role_id=role.id):
-            return
-        if not UserDao().get_user(user.id):
-            raise UserNotExist()
-        if not RoleDao().get_role(role.id):
-            raise RoleNotExist()
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         db.user_role_table.append({
             'id': str(len(db.user_role_table)),

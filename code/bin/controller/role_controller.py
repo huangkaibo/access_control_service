@@ -85,7 +85,10 @@ class RoleController:
         2. 如果token无效, 返回error
 
         Args:
-            auth_token (_type_): _description_
+            auth_token: token
+
+        Returns:
+            关联的所有role实体
         """
         user = TokenController().parse_token(auth_token)
         user_role_list = UserRoleDao().list_user_role(user_id=user.id)
