@@ -31,12 +31,6 @@ class UserDao:
             None
         """
         user.id = str(len(db.user_table))
-        if self.get_user(user_name=user.name):
-            raise UserExist(user.name)
-        # 盐
-        user.salt = Utils.generate_random_string(8)
-        # 密码+盐加密
-        user.password = Utils.calc_md5(user.password + user.salt)
         now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         db.user_table.append({
             'id': user.id,
@@ -63,7 +57,6 @@ class UserDao:
                 user['enabled'] = False
                 user['modify_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 return
-        raise UserNotExist(user_id)
 
     def get_user(self, user_id: str = None, user_name: str = None) -> 'User':
         """
