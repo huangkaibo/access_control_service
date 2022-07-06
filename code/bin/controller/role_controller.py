@@ -16,11 +16,11 @@ sys.path.append(os.path.join(code_dir, 'entity'))
 from role import Role
 from role_dao import RoleDao
 from user_role_dao import UserRoleDao
-from token_manater import TokenService
+from token_controller import TokenController
 from exception import InvalidToken, UserNotExist, AuthFailed, UserExist, RoleExist, RoleNotExist
 
 
-class RoleService:
+class RoleController:
     def add_role(self, role_name: str) -> None:
         """
         添加角色
@@ -73,6 +73,6 @@ class RoleService:
         Returns:
             true代表已关联, false代表未关联
         """
-        user = TokenService().parse_token(auth_token)
+        user = TokenController().parse_token(auth_token)
         user_role = UserRoleDao().get_user_role(user_id=user.id, role_id=role.id)
         return user_role is not None

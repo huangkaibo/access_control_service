@@ -19,7 +19,7 @@ from user_dao import UserDao
 from exception import InvalidToken, UserNotExist
 
 
-class TokenService:
+class TokenController:
     def __init__(self):
         # 过期时间, 单位秒
         self.EXPIRE = 5

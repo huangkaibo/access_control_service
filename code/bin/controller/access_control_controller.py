@@ -14,10 +14,11 @@ sys.path.append(os.path.join(code_dir, 'entity'))
 
 from utils import Utils
 from user_dao import UserDao
-from token_manater import TokenService
+from token_controller import TokenController
 from exception import InvalidToken, UserNotExist, AuthFailed
 
-class AccessControl:
+
+class AccessControlController:
     def authenticate(self, user_name: str, password: str) -> str:
         """
         校验用户名密码, 返回token
@@ -37,7 +38,7 @@ class AccessControl:
         if Utils.calc_md5(password + user.salt) != user.password:
             raise AuthFailed()
         # 签发token
-        token = TokenService().sign_token(user)
+        token = TokenController().sign_token(user)
         return token
 
     def invalidate(self, auth_token: str) -> None:
@@ -50,4 +51,4 @@ class AccessControl:
         Returns:
             None
         """
-        TokenService().sign_token(auth_token)
+        TokenController().sign_token(auth_token)

@@ -18,7 +18,7 @@ from user_dao import UserDao
 from exception import InvalidToken, UserNotExist, AuthFailed, UserExist
 
 
-class UserService:
+class UserController:
     def add_user(self, user_name: str, password: str) -> None:
         """
         注册用户
