@@ -11,7 +11,7 @@ class DB:
     def __init__(self):
         self.user_table = []
         self.role_table = []
-        self.role_user_table = []
+        self.user_role_table = []
 
 
 db = DB()
