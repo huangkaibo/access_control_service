@@ -31,7 +31,7 @@ class UserDao:
             None
         """
         user.id = str(len(db.user_table))
-        if self.get_user(user.id):
+        if self.get_user(user_name=user.name):
             raise UserExist(user.name)
         # 盐
         user.salt = Utils.generate_random_string(8)
@@ -65,22 +65,23 @@ class UserDao:
                 return
         raise UserNotExist(user_id)
 
-    def get_user(self, user_id: str) -> 'User':
+    def get_user(self, user_id: str = None, user_name: str = None) -> 'User':
         """
         获取用户
 
         Args:
             user_id: 用户id
+            user_name: 用户名
 
         Returns:
             用户
         """
-        if not user_id:
-            return
         for user in db.user_table:
             if not user['enabled']:
                 continue
-            if user['id'] != user_id:
+            if user_id and user['id'] != user_id:
+                continue
+            if user_name and user['name'] != user_name:
                 continue
             return User(
                 id=user['id'],
