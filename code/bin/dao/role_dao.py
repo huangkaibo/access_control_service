@@ -18,6 +18,9 @@ from role import Role
 
 
 class RoleDao:
+    """
+    角色的curd
+    """
     def add_role(self, role: 'Role') -> None:
         """
         添加角色

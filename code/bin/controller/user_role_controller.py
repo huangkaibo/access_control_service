@@ -22,6 +22,10 @@ from exception import UserNotExist, RoleNotExist
 
 
 class UserRoleController:
+    """
+    用户、角色关联关系相关api
+    (逻辑较浅, 所以controller和service合在一起写)
+    """
     def add_role_to_user(self, user: 'User', role: 'Role') -> None:
         """
         将用户关联到角色上

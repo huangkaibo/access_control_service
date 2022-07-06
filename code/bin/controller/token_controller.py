@@ -21,6 +21,10 @@ from exception import InvalidToken, UserNotExist
 
 
 class TokenController:
+    """
+    token相关API
+    (逻辑较浅, 所以controller和service合在一起写)
+    """
     def __init__(self):
         # 过期时间, 单位秒
         self.EXPIRE = 2
@@ -35,6 +39,7 @@ class TokenController:
         Returns:
             token
         """
+        # 过期时间
         expire_datetime = datetime.datetime.now() + datetime.timedelta(seconds=self.EXPIRE)
         expire_datetime = expire_datetime.strftime('%Y-%m-%d %H:%M:%S')
         token = {

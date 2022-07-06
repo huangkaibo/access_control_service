@@ -22,6 +22,10 @@ from exception import InvalidToken, UserNotExist, AuthFailed, UserExist, RoleExi
 
 
 class RoleController:
+    """
+    角色管理相关API
+    (逻辑较浅, 所以controller和service合在一起写)
+    """
     def add_role(self, role_name: str) -> None:
         """
         添加角色
@@ -59,6 +63,7 @@ class RoleController:
         role_dao = RoleDao()
         role_name = role.name
         role = role_dao.get_role(role_id=role.id)
+        # 角色不存在
         if not role:
             raise RoleNotExist(role_name)
         else:

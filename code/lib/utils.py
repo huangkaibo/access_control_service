@@ -10,6 +10,9 @@ import hashlib
 
 
 class Utils:
+    """
+    工具类
+    """
     @classmethod
     def calc_md5(cls, s: str) -> str:
         """

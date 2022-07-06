@@ -20,6 +20,10 @@ from exception import InvalidToken, UserNotExist, AuthFailed, UserExist
 
 
 class UserController:
+    """
+    用户管理相关API
+    (逻辑较浅, 所以controller和service合在一起写)
+    """
     def add_user(self, user_name: str, password: str) -> None:
         """
         注册用户

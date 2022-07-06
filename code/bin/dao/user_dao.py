@@ -18,6 +18,9 @@ from user import User
 
 
 class UserDao:
+    """
+    用户的curd
+    """
     def add_user(self, user: 'User') -> None:
         """
         添加用户

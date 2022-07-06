@@ -20,6 +20,9 @@ from user_role import UserRole
 
 
 class UserRoleDao:
+    """
+    用户-角色关系的curd
+    """
     def add_user_role(self, user: 'User', role: 'Role') -> None:
         """
         添加用户-角色

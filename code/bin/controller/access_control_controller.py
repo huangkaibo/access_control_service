@@ -20,6 +20,10 @@ from exception import InvalidToken, UserNotExist, AuthFailed
 
 
 class AccessControlController:
+    """
+    鉴权相关api
+    (逻辑较浅, 所以controller和service合在一起写)
+    """
     def authenticate(self, user_name: str, password: str) -> str:
         """
         校验用户名密码, 返回token
